@@ -1,3 +1,4 @@
+# ---- IMPORTS ----
 from google.oauth2.service_account import Credentials
 import gspread
 import pandas as pd
@@ -6,10 +7,7 @@ from wordcloud import WordCloud, STOPWORDS
 import streamlit as st
 import streamlit_authenticator as stauth
 
-st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
-
-
-# ---- CONFIGURACIÓN DE PÁGINA (SIEMPRE PRIMERO) ----
+# ---- CONFIGURACIÓN DE PÁGINA (PRIMER COMANDO) ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
 # ---- AUTENTICACIÓN ----
@@ -37,13 +35,10 @@ authenticator = stauth.Authenticate(
 # Login
 nombre, autenticado, username = authenticator.login("📥 Iniciar sesión", "main")
 
-# Si se autentica correctamente
 if autenticado:
     authenticator.logout("Cerrar sesión", "sidebar")
     st.sidebar.success(f"Bienvenido/a, {nombre}")
-
-# Si no se autentica
-elif not autenticado:
+else:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
 
