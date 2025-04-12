@@ -7,3 +7,4 @@ pandas
 matplotlib
 wordcloud
 textblob
+streamlit-authenticator==0.2.2
