@@ -4,6 +4,7 @@ import gspread
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
+import json
 
 # ---- CONFIGURACIÓN ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
