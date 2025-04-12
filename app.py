@@ -16,6 +16,7 @@ st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 # ---- CARGAR CONFIGURACIÓN DESDE YAML ----
 with open("config.yaml") as file:
     config = yaml.load(file, Loader=SafeLoader)
+    st.write("🧪 Configuración YAML cargada:", config["credentials"]["usernames"])
 
 # ---- CREAR OBJETO AUTENTICADOR ----
 authenticator = stauth.Authenticate(
