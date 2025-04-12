@@ -3,7 +3,17 @@ credentials:
     carlos:
       email: carlos@example.com
       name: Carlos Rodríguez
-      password: '$2b$12$4g/GhviWBuLCrJecxXiTYOqq6gaK8bErKQdJbYKmmR6BZawn9q4H.'  # demo1234
+      password: '$2b$12$gUAFeTlzBSjMz8V4HfnZL.r5jmDnRcy5Ju7WCCAlWJsMnOoafkP8C'  
+    pilar:
+      email: pilar@example.com
+      name: Pilar La Jefa Barrientos
+      password: '$2b$12$jFkjJ7AtyAaXILK/JH0mpe6fnIvK8aHk4/WNLx.MTiVevGwvqgPjq'  
+
+cookie:
+  expiry_days: 1
+  key: abcdef
+  name: encuesta_cookie
+      
 
 cookie:
   expiry_days: 1
