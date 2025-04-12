@@ -17,6 +17,14 @@ st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 with open("config.yaml") as file:
     config = yaml.load(file, Loader=SafeLoader)
 
+# ---- CREAR OBJETO AUTENTICADOR ----
+authenticator = stauth.Authenticate(
+    credentials=config['credentials'],
+    cookie_name=config['cookie']['name'],
+    cookie_key=config['cookie']['key'],
+    cookie_expiry_days=config['cookie']['expiry_days']
+)
+
 # ---- LOGIN ----
 name, auth_status, username = authenticator.login("📥 Iniciar sesión", location="main")
 
