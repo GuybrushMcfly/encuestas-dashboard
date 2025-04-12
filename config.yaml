@@ -3,7 +3,7 @@ credentials:
     carlos:
       email: carlos@example.com
       name: Carlos Rodríguez
-      password: '$2b$12$DWUv6Y0DGljFKdmE/cvGhu68EKaPKUOkoWfHArbDoN3YiQctv0U.O' 
+      password: '$2b$12$DWUv6Y0DGljFKdmE/cvGhu68EKaPKUOkoWfHArbDoN3YiQctv0U.O'  # demo1234
 
 cookie:
   expiry_days: 1
