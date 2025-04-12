@@ -27,12 +27,12 @@ credentials = {
 
 authenticator = stauth.Authenticate(
     credentials=credentials,
-    cookie_name="encuesta_cookie",
-    cookie_key="abcdef",
-    cookie_expiry_days=1
+    cookie_name="encuesta_cookie",  # nombre de la cookie
+    cookie_key="abcdef",            # clave secreta de la cookie
+    cookie_expiry_days=1            # duración de la sesión
 )
 
-# ---- LOGIN ----
+# ---- LOGIN (para versión >= 0.3.0) ----
 authenticator.login(form_name="📥 Iniciar sesión", location="main")
 
 # ---- CONTROL DE ACCESO ----
@@ -50,6 +50,7 @@ elif auth_status is False:
 elif auth_status is None:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
+
 
 
 # ---- CONTENIDO DEL DASHBOARD ----
