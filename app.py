@@ -26,9 +26,9 @@ credentials = {
 }
 
 authenticator = stauth.Authenticate(
-    credentials,
+    credentials=credentials,
     cookie_name="encuesta_cookie",
-    key="abcdef",  # clave secreta para cookies (puede ser cualquier string)
+    cookie_key="abcdef",
     cookie_expiry_days=1
 )
 
