@@ -33,16 +33,19 @@ authenticator = stauth.Authenticate(
 )
 
 # ---- LOGIN ----
-nombre, autenticado, username = authenticator.login("📥 Iniciar sesión", "main")
+authenticator.login("📥 Iniciar sesión", "main")
 
-if autenticado:
+if st.session_state.get("authentication_status"):
     authenticator.logout("Cerrar sesión", "sidebar")
-    st.sidebar.success(f"Bienvenido/a, {nombre}")
-    st.write("✅ Estás autenticado")  # Esto sirve para test
+    st.sidebar.success(f"Bienvenido/a, {st.session_state.get('name')}")
+    st.write("✅ Estás autenticado")
 else:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
+
+# ---- CONTENIDO DEL DASHBOARD ----
 st.title("📊 Dashboard de Resultados de Encuestas")
+
 
 # ---- CARGA DE DATOS ----
 scope = ["https://www.googleapis.com/auth/spreadsheets"]
