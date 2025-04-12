@@ -11,7 +11,7 @@ import streamlit_authenticator as stauth
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
 # ---- AUTENTICACIÓN ----
-# Contraseña: demo1234
+# Contraseña: demo1234 (hash generada con bcrypt)
 hashed_passwords = [
     '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'
 ]
@@ -28,18 +28,25 @@ credentials = {
 authenticator = stauth.Authenticate(
     credentials,
     cookie_name="encuesta_cookie",
-    key="abcdef",
+    key="abcdef",  # clave secreta para cookies (puede ser cualquier string)
     cookie_expiry_days=1
 )
 
 # ---- LOGIN ----
 authenticator.login("📥 Iniciar sesión", "main")
 
-if st.session_state.get("authentication_status"):
+# ---- CONTROL DE ACCESO ----
+auth_status = st.session_state.get("authentication_status", None)
+
+if auth_status is True:
     authenticator.logout("Cerrar sesión", "sidebar")
     st.sidebar.success(f"Bienvenido/a, {st.session_state.get('name')}")
-    st.write("✅ Estás autenticado")
-else:
+    st.title("📊 Dashboard de Resultados de Encuestas")
+
+elif auth_status is False:
+    st.error("❌ Usuario o contraseña incorrectos.")
+
+elif auth_status is None:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
 
