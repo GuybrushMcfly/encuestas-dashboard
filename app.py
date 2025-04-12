@@ -18,7 +18,7 @@ with open("config.yaml") as file:
     config = yaml.load(file, Loader=SafeLoader)
     
 # 👉 Mostrar el hash cargado para verificar (solo durante pruebas)
-st.code(config['credentials']['usernames']['carlos']['password'])
+#st.code(config['credentials']['usernames']['carlos']['password'])
 
 # ---- CREAR OBJETO AUTENTICADOR ----
 authenticator = stauth.Authenticate(
