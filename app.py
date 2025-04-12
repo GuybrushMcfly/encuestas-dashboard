@@ -26,19 +26,19 @@ authenticator = stauth.Authenticate(
 )
 
 # ---- LOGIN ----
-name, auth_status, username = authenticator.login()
+authenticator.login()
 
-# ---- CONTROL DE ACCESO ----
-if auth_status is False:
-    st.error("❌ Usuario o contraseña incorrectos.")
-elif auth_status is None:
-    st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
-    st.stop()
-elif auth_status:
-    authenticator.logout("Cerrar sesión", location="sidebar")
-    st.sidebar.success(f"Bienvenido/a, {name}")
+if st.session_state["authentication_status"]:
+    authenticator.logout("Cerrar sesión", "sidebar")
+    st.sidebar.success(f"Bienvenido/a, {st.session_state['name']}")
     st.title("📊 Dashboard de Resultados de Encuestas")
     st.write("✅ Estás autenticado.")
+elif st.session_state["authentication_status"] is False:
+    st.error("❌ Usuario o contraseña incorrectos.")
+    st.stop()
+elif st.session_state["authentication_status"] is None:
+    st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
+    st.stop()
 
 
 
