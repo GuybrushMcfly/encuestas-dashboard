@@ -12,8 +12,9 @@ import streamlit_authenticator as stauth
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
 # ---- AUTENTICACIÓN ----
+# Contraseña: demo1234
 hashed_passwords = [
-    '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'  # demo1234
+    '$2b$12$wWVzdhAyQDJQ9.2KmKcFMeQWNdGcTu9rYBBnZULqZMsYkTigAO02a'
 ]
 
 credentials = {
@@ -27,30 +28,31 @@ credentials = {
 
 authenticator = stauth.Authenticate(
     credentials=credentials,
-    cookie_name="encuesta_cookie",
-    cookie_key="abcdef",
+    cookie_name="encuesta_cookie",  # nombre de la cookie
+    cookie_key="abcdef",            # clave secreta
     cookie_expiry_days=1
 )
 
 # ---- LOGIN ----
-authenticator.login()
+name, authentication_status, username = authenticator.login("📥 Iniciar sesión", "main")
 
 # ---- CONTROL DE ACCESO ----
-auth_status = st.session_state.get("authentication_status", None)
-
-if auth_status is True:
+if authentication_status:
     authenticator.logout("Cerrar sesión", "sidebar")
-    st.sidebar.success(f"Bienvenido/a, {st.session_state.get('name')}")
+    st.sidebar.success(f"Bienvenido/a, {name}")
 
-    # 👉 TODO el contenido del dashboard va dentro de este bloque:
+    # ---- CONTENIDO DEL DASHBOARD ----
     st.title("📊 Dashboard de Resultados de Encuestas")
-    # ... tus gráficos, filtros, etc.
 
-elif auth_status is False:
+    # Ejemplo de contenido:
+    st.subheader("📌 Esto es un ejemplo")
+    st.write("Aquí va tu lógica para cargar datos, mostrar gráficos, etc.")
+
+elif authentication_status is False:
     st.error("❌ Usuario o contraseña incorrectos.")
     st.stop()
 
-elif auth_status is None:
+elif authentication_status is None:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
 
