@@ -1,17 +1,22 @@
-import streamlit as st
 from google.oauth2.service_account import Credentials
 import gspread
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
-
+import streamlit as st
 import streamlit_authenticator as stauth
 
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
 
+# ---- CONFIGURACIÓN DE PÁGINA (SIEMPRE PRIMERO) ----
+st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
+
 # ---- AUTENTICACIÓN ----
-hashed_passwords = ['$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK']  # demo1234
+# Contraseña: demo1234
+hashed_passwords = [
+    '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'  # hash de demo1234
+]
 
 credentials = {
     "usernames": {
@@ -23,21 +28,25 @@ credentials = {
 }
 
 authenticator = stauth.Authenticate(
-    credentials, "encuesta_cookie", "abcdef", cookie_expiry_days=1
+    credentials,
+    cookie_name="encuesta_cookie",
+    key="abcdef",
+    cookie_expiry_days=1
 )
 
+# Login
 nombre, autenticado, username = authenticator.login("📥 Iniciar sesión", "main")
 
+# Si se autentica correctamente
 if autenticado:
     authenticator.logout("Cerrar sesión", "sidebar")
     st.sidebar.success(f"Bienvenido/a, {nombre}")
 
-
-# ---- CONFIGURACIÓN ----
-
-if not autenticado:
+# Si no se autentica
+elif not autenticado:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
+
 
 st.title("📊 Dashboard de Resultados de Encuestas")
 
