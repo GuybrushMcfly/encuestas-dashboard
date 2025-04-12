@@ -4,10 +4,38 @@ import gspread
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
-import json
+
+import streamlit_authenticator as stauth
+
+# ---- AUTENTICACIÓN ----
+hashed_passwords = ['$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK']  # demo1234
+
+credentials = {
+    "usernames": {
+        "admin": {
+            "name": "Administrador",
+            "password": hashed_passwords[0]
+        }
+    }
+}
+
+authenticator = stauth.Authenticate(
+    credentials, "encuesta_cookie", "abcdef", cookie_expiry_days=1
+)
+
+nombre, autenticado, username = authenticator.login("📥 Iniciar sesión", "main")
+
+if autenticado:
+    authenticator.logout("Cerrar sesión", "sidebar")
+    st.sidebar.success(f"Bienvenido/a, {nombre}")
+
 
 # ---- CONFIGURACIÓN ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
+
+elif not autenticado:
+    st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
+    st.stop()
 
 st.title("📊 Dashboard de Resultados de Encuestas")
 
@@ -77,4 +105,3 @@ plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis("off")
 plt.title("CONOCIMIENTOS ADQUIRIDOS EN EL CURSO", fontsize=18)
 st.pyplot(plt)
-
