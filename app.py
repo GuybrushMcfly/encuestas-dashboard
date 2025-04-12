@@ -13,7 +13,7 @@ st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
 # ---- CREDENCIALES (hash de demo1234) ----
 hashed_passwords = [
-    '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'
+    '$2b$12$NFeMbzOJgcXsqb/8LOtJlu6Wq1.20aaGpNeknuvqnlA8H2KT2GCfq'  # demo1234
 ]
 
 credentials = {
