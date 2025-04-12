@@ -1,12 +1,12 @@
 # ---- IMPORTS ----
+import json
 from google.oauth2.service_account import Credentials
-import streamlit as st
-import streamlit_authenticator as stauth
-import json  # 👈 IMPORTANTE
 import gspread
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
+import streamlit as st
+import streamlit_authenticator as stauth
 
 # ---- CONFIGURACIÓN DE PÁGINA ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
@@ -32,22 +32,28 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=1
 )
 
-# ---- LOGIN (nuevo formato sin argumentos) ----
-auth_status = authenticator.login()
+# ---- LOGIN ----
+authenticator.login()
 
 # ---- CONTROL DE ACCESO ----
-if auth_status:
+auth_status = st.session_state.get("authentication_status", None)
+
+if auth_status is True:
     authenticator.logout("Cerrar sesión", "sidebar")
     st.sidebar.success(f"Bienvenido/a, {st.session_state.get('name')}")
+
+    # 👉 TODO el contenido del dashboard va dentro de este bloque:
     st.title("📊 Dashboard de Resultados de Encuestas")
+    # ... tus gráficos, filtros, etc.
 
 elif auth_status is False:
     st.error("❌ Usuario o contraseña incorrectos.")
     st.stop()
 
-else:
+elif auth_status is None:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
+
 
 # ---- CONTENIDO DEL DASHBOARD ----
 st.title("📊 Dashboard de Resultados de Encuestas")
