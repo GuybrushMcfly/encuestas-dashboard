@@ -7,63 +7,40 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 import streamlit as st
 import streamlit_authenticator as stauth
+import yaml
+from yaml.loader import SafeLoader
 
 # ---- CONFIGURACIÓN DE PÁGINA ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
-# ---- CREDENCIALES (hash de demo1234) ----
-hashed_passwords = [
-    '$2b$12$NFeMbzOJgcXsqb/8LOtJlu6Wq1.20aaGpNeknuvqnlA8H2KT2GCfq'  # demo1234
-]
-
-credentials = {
-    "usernames": {
-        "admin": {
-            "email": "admin@example.com",
-            "name": "Administrador",
-            "password": hashed_passwords[0]
-        }
-    }
-}
-
-cookie_config = {
-    "name": "encuesta_cookie",
-    "key": "abcdef",  # Clave secreta
-    "expiry_days": 1
-}
-
-preauthorized = {
-    "emails": []
-}
+# ---- CARGAR CONFIGURACIÓN DESDE YAML ----
+with open("config.yaml") as file:
+    config = yaml.load(file, Loader=SafeLoader)
 
 # ---- AUTENTICADOR ----
 authenticator = stauth.Authenticate(
-    credentials=credentials,
-    cookie_name=cookie_config["name"],
-    cookie_key=cookie_config["key"],
-    cookie_expiry_days=cookie_config["expiry_days"],
-    preauthorized=preauthorized
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config['preauthorized']
 )
 
 # ---- LOGIN ----
-name, auth_status, username = authenticator.login(
-    form_name="📥 Iniciar sesión",
-    location="main"
-)
+name, auth_status, username = authenticator.login("📥 Iniciar sesión", location="main")
+
 # ---- CONTROL DE ACCESO ----
 if auth_status is False:
     st.error("❌ Usuario o contraseña incorrectos.")
 elif auth_status is None:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
-elif auth_status is True:
-    authenticator.logout("Cerrar sesión", "sidebar")
+elif auth_status:
+    authenticator.logout("Cerrar sesión", location="sidebar")
     st.sidebar.success(f"Bienvenido/a, {name}")
     st.title("📊 Dashboard de Resultados de Encuestas")
     st.write("✅ Estás autenticado.")
 
-# ---- CONTENIDO DEL DASHBOARD ----
-st.title("📊 Dashboard de Resultados de Encuestas")
 
 
 # ---- CARGA DE DATOS ----
