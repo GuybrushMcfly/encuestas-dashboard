@@ -7,7 +7,7 @@ from wordcloud import WordCloud, STOPWORDS
 import streamlit as st
 import streamlit_authenticator as stauth
 
-# ---- CONFIGURACIÓN DE PÁGINA (PRIMER COMANDO) ----
+# ---- CONFIGURACIÓN DE PÁGINA ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
 # ---- AUTENTICACIÓN ----
@@ -31,9 +31,10 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=1
 )
 
-# ---- LOGIN ACTUALIZADO ----
-auth_status = authenticator.login("📥 Iniciar sesión")
+# ---- LOGIN (nuevo formato sin argumentos) ----
+auth_status = authenticator.login()
 
+# ---- CONTROL DE ACCESO ----
 if auth_status:
     authenticator.logout("Cerrar sesión", "sidebar")
     st.sidebar.success(f"Bienvenido/a, {st.session_state.get('name')}")
@@ -46,7 +47,6 @@ elif auth_status is False:
 else:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
-
 
 # ---- CONTENIDO DEL DASHBOARD ----
 st.title("📊 Dashboard de Resultados de Encuestas")
