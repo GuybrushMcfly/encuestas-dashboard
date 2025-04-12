@@ -34,8 +34,9 @@ authenticator = stauth.Authenticate(
 )
 
 # ---- LOGIN ----
-name, authentication_status, username = authenticator.login("📥 Iniciar sesión", "main")
-
+name, authentication_status, username = authenticator.login(
+    form_name="📥 Iniciar sesión", location="main"
+)
 # ---- CONTROL DE ACCESO ----
 if authentication_status:
     authenticator.logout("Cerrar sesión", "sidebar")
