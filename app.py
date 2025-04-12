@@ -26,7 +26,7 @@ authenticator = stauth.Authenticate(
 )
 
 # ---- LOGIN ----
-name, auth_status, username = authenticator.login("📥 Iniciar sesión", location="main")
+name, auth_status, username = authenticator.login()
 
 # ---- CONTROL DE ACCESO ----
 if auth_status is False:
