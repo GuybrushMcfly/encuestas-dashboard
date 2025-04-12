@@ -1,0 +1,14 @@
+credentials:
+  usernames:
+    admin:
+      email: admin@example.com
+      name: Administrador
+      password: '$2b$12$NFeMbzOJgcXsqb/8LOtJlu6Wq1.20aaGpNeknuvqnlA8H2KT2GCfq'  # demo1234
+
+cookie:
+  expiry_days: 1
+  key: abcdef
+  name: encuesta_cookie
+
+preauthorized:
+  emails: []
