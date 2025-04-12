@@ -1,11 +1,12 @@
 # ---- IMPORTS ----
 from google.oauth2.service_account import Credentials
+import streamlit as st
+import streamlit_authenticator as stauth
+import json  # 👈 IMPORTANTE
 import gspread
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
-import streamlit as st
-import streamlit_authenticator as stauth
 
 # ---- CONFIGURACIÓN DE PÁGINA ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
