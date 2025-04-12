@@ -11,48 +11,54 @@ import streamlit_authenticator as stauth
 # ---- CONFIGURACIÓN DE PÁGINA ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
-# ---- AUTENTICACIÓN ----
+# ---- CREDENCIALES (hash de demo1234) ----
 hashed_passwords = [
-    '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'  # demo1234
+    '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'
 ]
 
 credentials = {
     "usernames": {
         "admin": {
+            "email": "admin@example.com",
             "name": "Administrador",
             "password": hashed_passwords[0]
         }
     }
 }
 
+cookie_config = {
+    "name": "encuesta_cookie",
+    "key": "abcdef",  # Clave secreta
+    "expiry_days": 1
+}
+
+preauthorized = {
+    "emails": []
+}
+
+# ---- AUTENTICADOR ----
 authenticator = stauth.Authenticate(
     credentials=credentials,
-    cookie_name="encuesta_cookie",
-    cookie_key="abcdef",
-    cookie_expiry_days=1
+    cookie_name=cookie_config["name"],
+    cookie_key=cookie_config["key"],
+    cookie_expiry_days=cookie_config["expiry_days"],
+    preauthorized=preauthorized
 )
 
 # ---- LOGIN ----
-authenticator.login()
+name, auth_status, username = authenticator.login("📥 Iniciar sesión", "main")
 
 # ---- CONTROL DE ACCESO ----
-auth_status = st.session_state.get("authentication_status", None)
-
-if auth_status is True:
-    authenticator.logout("Cerrar sesión", "sidebar")
-    st.sidebar.success(f"Bienvenido/a, {st.session_state.get('name')}")
-
-    # 👉 TODO el contenido del dashboard va dentro de este bloque:
-    st.title("📊 Dashboard de Resultados de Encuestas")
-    # ... tus gráficos, filtros, etc.
-
-elif auth_status is False:
+if auth_status is False:
     st.error("❌ Usuario o contraseña incorrectos.")
-    st.stop()
-
 elif auth_status is None:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
+elif auth_status is True:
+    authenticator.logout("Cerrar sesión", "sidebar")
+    st.sidebar.success(f"Bienvenido/a, {name}")
+    st.title("📊 Dashboard de Resultados de Encuestas")
+    st.write("✅ Estás autenticado.")
 
 # ---- CONTENIDO DEL DASHBOARD ----
 st.title("📊 Dashboard de Resultados de Encuestas")
