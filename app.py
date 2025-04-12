@@ -32,14 +32,14 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=1            # duración de la sesión
 )
 
-# ---- LOGIN (para versión >= 0.3.0) ----
-authenticator.login(form_name="📥 Iniciar sesión", location="main")
+# ---- LOGIN (versión >= 0.3.0) ----
+authenticator.login()
 
 # ---- CONTROL DE ACCESO ----
 auth_status = st.session_state.get("authentication_status", None)
 
 if auth_status is True:
-    authenticator.logout(button_name="Cerrar sesión", location="sidebar")
+    authenticator.logout("Cerrar sesión", "sidebar")
     st.sidebar.success(f"Bienvenido/a, {st.session_state.get('name')}")
     st.title("📊 Dashboard de Resultados de Encuestas")
 
