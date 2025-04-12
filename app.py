@@ -7,6 +7,9 @@ from wordcloud import WordCloud, STOPWORDS
 
 import streamlit_authenticator as stauth
 
+st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
+
+
 # ---- AUTENTICACIÓN ----
 hashed_passwords = ['$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK']  # demo1234
 
@@ -31,7 +34,6 @@ if autenticado:
 
 
 # ---- CONFIGURACIÓN ----
-st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
 if not autenticado:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
