@@ -1,9 +1,9 @@
 credentials:
   usernames:
-    admin:
-      email: admin@example.com
-      name: Administrador
-      password: '$2b$12$NFeMbzOJgcXsqb/8LOtJlu6Wq1.20aaGpNeknuvqnlA8H2KT2GCfq'
+    carlos:
+      email: carlos@example.com
+      name: Carlos Rodríguez
+      password: '$2b$12$XuWmApL3S3yZ3xiT9rX3Au0DFzOv29lQlRuGqraOK81w5JAVPvU9y'
 
 cookie:
   expiry_days: 1
