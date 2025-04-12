@@ -33,7 +33,7 @@ if autenticado:
 # ---- CONFIGURACIÓN ----
 st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 
-elif not autenticado:
+if not autenticado:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
 
