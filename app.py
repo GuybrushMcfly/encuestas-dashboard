@@ -13,7 +13,7 @@ st.set_page_config(page_title="Dashboard de Encuestas", layout="wide")
 # ---- AUTENTICACIÓN ----
 # Contraseña: demo1234
 hashed_passwords = [
-    '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'  # hash de demo1234
+    '$2b$12$M1KnwIj5PusgAujBMY0iFeiGNSefhIZU7DdQy3Ubp1ImvHz43E9tK'
 ]
 
 credentials = {
@@ -32,17 +32,16 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=1
 )
 
-# Login
+# ---- LOGIN ----
 nombre, autenticado, username = authenticator.login("📥 Iniciar sesión", "main")
 
 if autenticado:
     authenticator.logout("Cerrar sesión", "sidebar")
     st.sidebar.success(f"Bienvenido/a, {nombre}")
+    st.write("✅ Estás autenticado")  # Esto sirve para test
 else:
     st.warning("🔒 Ingresá tus credenciales para acceder al dashboard.")
     st.stop()
-
-
 st.title("📊 Dashboard de Resultados de Encuestas")
 
 # ---- CARGA DE DATOS ----
