@@ -100,7 +100,8 @@ stopwords = STOPWORDS.union({
     "muy", "gral", "si", "_x000d", "_x000d_", "hay", "entre", "lo", "es", "hacia", "mis", "mas", "una",
     "eso", "su", "sus", "esa", "esas", "cual", "cuales", "tambien", "por", "sin", "se", "sobre",
     "ante", "rt", "o", "estar", "bien", "tener", "ser", "todo", "hacer", "cosa", "juan", "ggo", "sabia",
-    "gracias", "otro", "otros", "sirve", "divertida", "hace", "nada", "e", "donde", "buena"
+    "gracias", "otro", "otros", "sirve", "divertida", "hace", "nada", "e", "donde", "buena", "otras",
+    "sirvio", "mejor", "sacan", "dieron", "algun"
 })
 
 wordcloud = WordCloud(width=1000, height=400, background_color="white", max_words=40,
