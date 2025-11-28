@@ -123,6 +123,13 @@ graficar_torta("valoracion_docente",
 plt.tight_layout(rect=[0, 0, 1, 0.90])  # deja espacio al título
 st.pyplot(fig)
 
+# Diccionario de indicadores (necesario para Versión 2 y Versión 3)
+indicadores = {
+    "CONOCIMIENTOS PREVIOS SOBRE LOS TEMAS DESARROLLADOS": "conocimientos_previos",
+    "VALORACIÓN GENERAL DEL CURSO": "valoracion_curso",
+    "APLICACIÓN PRÁCTICA EN EL PUESTO DE TRABAJO": "conocimientos_aplicables",
+    "VALORACIÓN DEL DESEMPEÑO DOCENTE": "valoracion_docente"
+}
 
 
 # ================================================================
