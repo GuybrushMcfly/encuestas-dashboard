@@ -96,77 +96,32 @@ def graficar_torta(columna, titulo, ax):
 
 
 # ================================================================
-#  📊 VERSIÓN 1 — TORTAS CON ESTILO INSTITUCIONAL
+#  📊 VERSIÓN 1 — TORTAS
 # ================================================================
-
-# Establecer estilo general
-plt.rcParams.update({
-    "font.size": 11,
-    "font.family": "sans-serif",
-    "figure.facecolor": "#FFFFFF",
-    "axes.facecolor": "#FFFFFF"
-})
 
 fig, axs = plt.subplots(2, 2, figsize=(14, 10))
 
-# Título institucional dentro del gráfico
-fig.suptitle(
-    f"RESULTADOS CUANTITATIVOS — Total de respuestas: {len(data)}",
-    fontsize=20,
-    color="#0B3954",
-    y=0.94
-)
+# título dentro de la imagen
+fig.suptitle(f"TOTAL DE RESPUESTAS: {len(data)}", fontsize=18, y=0.92)
 
-# Paleta institucional
-colores_institucionales = ["#1878A1", "#7EC8E3", "#0B3954", "#A9CCE3", "#D0E7F2"]
-
-def graficar_torta_estilo(columna, titulo, ax):
-    conteo = data[columna].value_counts()
-    ax.pie(
-        conteo,
-        labels=conteo.index,
-        autopct="%1.1f%%",
-        colors=colores_institucionales[:len(conteo)],
-        textprops={"color": "#0B3954", "fontsize": 11}
-    )
-
-    # Fondo tarjeta
-    ax.set_facecolor("#FFFFFF")
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-
-    # Título moderno
-    ax.set_title(
-        titulo,
-        fontsize=13,
-        color="#0B3954",
-        pad=18,
-        weight="bold"
-    )
-
-    # Borde y sombra ligera (simulada)
-    ax.figure.patch.set_facecolor("#FFFFFF")
-
-
-graficar_torta_estilo("conocimientos_previos",
+graficar_torta("conocimientos_previos",
                "CONOCIMIENTOS PREVIOS SOBRE LOS TEMAS DESARROLLADOS",
                axs[0, 0])
 
-graficar_torta_estilo("valoracion_curso",
+graficar_torta("valoracion_curso",
                "VALORACIÓN GENERAL DEL CURSO",
                axs[0, 1])
 
-graficar_torta_estilo("conocimientos_aplicables",
+graficar_torta("conocimientos_aplicables",
                "APLICACIÓN PRÁCTICA EN EL PUESTO DE TRABAJO",
                axs[1, 0])
 
-graficar_torta_estilo("valoracion_docente",
+graficar_torta("valoracion_docente",
                "VALORACIÓN DEL DESEMPEÑO DOCENTE",
                axs[1, 1])
 
-plt.tight_layout(rect=[0, 0, 1, 0.92])
+plt.tight_layout(rect=[0, 0, 1, 0.90])  # deja espacio al título
 st.pyplot(fig)
-
 
 # Diccionario de indicadores (necesario para Versión 2 y Versión 3)
 indicadores = {
