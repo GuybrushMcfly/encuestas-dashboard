@@ -96,12 +96,13 @@ def graficar_torta(columna, titulo, ax):
 
 
 # ================================================================
-#  📊 GRAFICOS (siempre los mismos)
+#  📊 VERSIÓN 1 — TORTAS
 # ================================================================
 
-st.markdown(f"### 📌 Total de respuestas: **{len(data)}**")
-
 fig, axs = plt.subplots(2, 2, figsize=(14, 10))
+
+# título dentro de la imagen
+fig.suptitle(f"TOTAL DE RESPUESTAS: {len(data)}", fontsize=18, y=0.92)
 
 graficar_torta("conocimientos_previos",
                "CONOCIMIENTOS PREVIOS SOBRE LOS TEMAS DESARROLLADOS",
@@ -119,74 +120,69 @@ graficar_torta("valoracion_docente",
                "VALORACIÓN DEL DESEMPEÑO DOCENTE",
                axs[1, 1])
 
+plt.tight_layout(rect=[0, 0, 1, 0.90])  # deja espacio al título
 st.pyplot(fig)
 
 
-# ================================================================
-#  📊 SEGUNDA VERSIÓN DE LOS GRÁFICOS (barras horizontales)
-# ================================================================
-st.markdown(f"### 📌 Total de respuestas: **{len(data)}**")
 
-indicadores = {
-    "CONOCIMIENTOS PREVIOS SOBRE LOS TEMAS DESARROLLADOS": "conocimientos_previos",
-    "VALORACIÓN GENERAL DEL CURSO": "valoracion_curso",
-    "APLICACIÓN PRÁCTICA EN EL PUESTO DE TRABAJO": "conocimientos_aplicables",
-    "VALORACIÓN DEL DESEMPEÑO DOCENTE": "valoracion_docente"
-}
+# ================================================================
+#  📊 VERSIÓN 2 — BARRAS EN GRILLA 2×2
+# ================================================================
 
-for titulo, col in indicadores.items():
-    st.markdown(f"#### {titulo}")
+fig2, axs2 = plt.subplots(2, 2, figsize=(16, 12))
+
+fig2.suptitle(f"TOTAL DE RESPUESTAS: {len(data)}", fontsize=18, y=0.92)
+
+axs2 = axs2.flatten()
+
+for idx, (titulo, col) in enumerate(indicadores.items()):
     conteo = data[col].value_counts().sort_values()
+    ax = axs2[idx]
 
-    fig2, ax2 = plt.subplots(figsize=(10, 4))
-    ax2.barh(conteo.index, conteo.values, color="#7FB3D5")
-    ax2.set_xlabel("Cantidad de respuestas")
-    ax2.set_ylabel("")
-    ax2.set_title(titulo)
+    ax.barh(conteo.index, conteo.values, color="#7FB3D5")
+    ax.set_title(titulo, fontsize=12)
 
     for i, v in enumerate(conteo.values):
-        ax2.text(v + 0.5, i, str(v), va="center")
+        ax.text(v + 0.3, i, str(v), va="center")
 
-    st.pyplot(fig2)
+plt.tight_layout(rect=[0, 0, 1, 0.90])
+st.pyplot(fig2)
+
 
 # ================================================================
-#  🥯 VERSIÓN 3 DE GRÁFICOS: PIE/DONUT MODERNOS
+#  🥯 VERSIÓN 3 — DONUTS MODERNOS 2×2
 # ================================================================
-st.markdown(f"### 📌 Total de respuestas: **{len(data)}**")
 
-import numpy as np
+fig3, axs3 = plt.subplots(2, 2, figsize=(16, 12))
+fig3.suptitle(f"TOTAL DE RESPUESTAS: {len(data)}", fontsize=18, y=0.92)
 
-def graficar_donut(columna, titulo):
-    conteo = data[columna].value_counts()
+axs3 = axs3.flatten()
+
+for idx, (titulo, col) in enumerate(indicadores.items()):
+    conteo = data[col].value_counts()
     etiquetas = conteo.index
     valores = conteo.values
+    ax = axs3[idx]
 
-    # Colores más modernos
     colores_modernos = ["#6EC6FF", "#A5FFD6", "#FFC4E1", "#FFED66", "#B28DFF"]
-
-    fig, ax = plt.subplots(figsize=(7, 6))
-
-    # "explode" automático para que las porciones chicas salgan bien
-    explode = []
-    total = valores.sum()
-    for v in valores:
-        explode.append(0.06 if v / total < 0.1 else 0.02)
+    explode = [0.06 if v / valores.sum() < 0.1 else 0.02 for v in valores]
 
     wedges, texts, autotexts = ax.pie(
         valores,
-        labels=None,   # sin etiquetas adentro
+        labels=None,
         autopct="%1.1f%%",
-        pctdistance=0.85,
+        pctdistance=0.8,
         explode=explode,
         colors=colores_modernos[:len(valores)],
-        startangle=140
+        startangle=145
     )
 
-    # DONUT → círculo blanco al centro
+    # Donut
     centro = plt.Circle((0, 0), 0.55, color="white")
     ax.add_artist(centro)
 
-    # Etiquetas afuera con líneas (muy moderno)
+    # Etiquetas afuera
+    import numpy as np
     kw = {
         "arrowprops": dict(arrowstyle="-", color="gray"),
         "bbox": dict(boxstyle="round,pad=0.3", fc="white", ec="gray", lw=0.8),
@@ -198,17 +194,19 @@ def graficar_donut(columna, titulo):
         ang = (p.theta2 - p.theta1) / 2 + p.theta1
         x = np.cos(np.deg2rad(ang))
         y = np.sin(np.deg2rad(ang))
-        horizontal = "left" if x > 0 else "right"
+        ha = "left" if x > 0 else "right"
         ax.annotate(
             etiquetas[i],
-            xy=(x * 0.8, y * 0.8),
-            xytext=(1.1 * np.sign(x), 1.2 * y),
-            ha=horizontal,
-            **kw,
+            xy=(x * 0.7, y * 0.7),
+            xytext=(1.15 * x, 1.2 * y),
+            ha=ha,
+            **kw
         )
 
-    ax.set_title(titulo, fontsize=14)
-    st.pyplot(fig)
+    ax.set_title(titulo, fontsize=12)
+
+plt.tight_layout(rect=[0, 0, 1, 0.90])
+st.pyplot(fig3)
 
 
 # ----- Gráficos -----
