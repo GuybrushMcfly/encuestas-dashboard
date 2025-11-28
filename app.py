@@ -216,21 +216,6 @@ plt.tight_layout(rect=[0, 0, 1, 0.90])
 st.pyplot(fig3)
 
 
-# ----- Gráficos -----
-
-graficar_donut("conocimientos_previos",
-               "CONOCIMIENTOS PREVIOS SOBRE LOS TEMAS DESARROLLADOS")
-
-graficar_donut("valoracion_curso",
-               "VALORACIÓN GENERAL DEL CURSO")
-
-graficar_donut("conocimientos_aplicables",
-               "APLICACIÓN PRÁCTICA EN EL PUESTO DE TRABAJO")
-
-graficar_donut("valoracion_docente",
-               "VALORACIÓN DEL DESEMPEÑO DOCENTE")
-
-
 
 # ================================================================
 #  ☁️ NUBE DE PALABRAS
