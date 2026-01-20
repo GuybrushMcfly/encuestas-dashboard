@@ -185,7 +185,7 @@ for idx, (titulo, col) in enumerate(indicadores.items()):
     )
 
     # Donut
-    centro = plt.Circle((0, 0), 0.55, color="white")
+    centro = plt.Circle((0, 0), 0.40, color="white")
     ax.add_artist(centro)
 
     # Etiquetas afuera
@@ -196,16 +196,21 @@ for idx, (titulo, col) in enumerate(indicadores.items()):
         "zorder": 10,
         "va": "center"
     }
-
+    
+    radio_externo = 1.0        # borde del gráfico
+    radio_texto = 1.35         # dónde va la etiqueta
+    
     for i, p in enumerate(wedges):
         ang = (p.theta2 - p.theta1) / 2 + p.theta1
         x = np.cos(np.deg2rad(ang))
         y = np.sin(np.deg2rad(ang))
+    
         ha = "left" if x > 0 else "right"
+    
         ax.annotate(
             etiquetas[i],
-            xy=(x * 0.7, y * 0.7),
-            xytext=(1.15 * x, 1.2 * y),
+            xy=(x * radio_externo, y * radio_externo),   # 👉 sale del borde
+            xytext=(x * radio_texto, y * radio_texto),   # 👉 texto bien afuera
             ha=ha,
             **kw
         )
@@ -231,7 +236,8 @@ stopwords = STOPWORDS.union({
     "mi", "un", "q", "ya", "tenia", "hecho", "cuando", "mas", "habia", "del",
     "muy", "gral", "si", "_x000d", "_x000d_", "hay", "entre", "lo", "es", "hacia", "mis", "una",
     "eso", "su", "sus", "esa", "esas", "cual", "cuales", "tambien", "por", "sin", "se", "sobre",
-    "ante", "rt", "o", "estar", "bien", "tener", "ser", "todo", "hacer", "cosa", "gracias", "otra", "otro", "otros", "otras"    
+    "ante", "rt", "o", "estar", "bien", "tener", "ser", "todo", "hacer", "cosa", "gracias", "otra", "otro", "otros", "otras",
+    "este", "ha"
 })
 
 wordcloud = WordCloud(
