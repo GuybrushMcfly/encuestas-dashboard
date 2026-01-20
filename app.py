@@ -197,8 +197,9 @@ for idx, (titulo, col) in enumerate(indicadores.items()):
         "va": "center"
     }
     
-    radio_externo = 1.0        # borde del gráfico
-    radio_texto = 1.35         # dónde va la etiqueta
+
+    radio_externo = 1.02
+    radio_texto = 1.18
     
     for i, p in enumerate(wedges):
         ang = (p.theta2 - p.theta1) / 2 + p.theta1
@@ -209,11 +210,12 @@ for idx, (titulo, col) in enumerate(indicadores.items()):
     
         ax.annotate(
             etiquetas[i],
-            xy=(x * radio_externo, y * radio_externo),   # 👉 sale del borde
-            xytext=(x * radio_texto, y * radio_texto),   # 👉 texto bien afuera
+            xy=(x * radio_externo, y * radio_externo),
+            xytext=(x * radio_texto, y * radio_texto),
             ha=ha,
             **kw
         )
+
 
     ax.set_title(titulo, fontsize=12)
 
