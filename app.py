@@ -249,7 +249,7 @@ wordcloud = WordCloud(
     background_color="white",
     max_words=40,
     stopwords=stopwords,
-    colormap="veridis",
+    colormap="viridis",
     min_font_size=20
 ).generate(texto)
 
