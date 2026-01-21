@@ -240,17 +240,17 @@ stopwords = STOPWORDS.union({
     "eso", "su", "sus", "esa", "esas", "cual", "cuales", "tambien", "por", "sin", "se", "sobre",
     "ante", "rt", "o", "estar", "bien", "tener", "ser", "todo", "hacer", "cosa", "gracias", "otra", "otro", "otros", "otras",
     "este", "ha", "va", "algun", "algunas", "fue", "fueron", "claros", "desde", "cada", "esta", "estas", "toda", "porque", 
-    "mucho", "muchos", "todos"
+    "mucho", "muchos", "todos", "hasta", "uno", "una"
 })
 
 wordcloud = WordCloud(
     width=1000,
     height=500,
     background_color="white",
-    max_words=60,
+    max_words=70,
     stopwords=stopwords,
     colormap="viridis",
-    min_font_size=15
+    min_font_size=14
 ).generate(texto)
 
 plt.figure(figsize=(12, 5))
