@@ -247,10 +247,10 @@ wordcloud = WordCloud(
     width=1000,
     height=500,
     background_color="white",
-    max_words=30,
+    max_words=50,
     stopwords=stopwords,
     colormap="viridis",
-    min_font_size=30
+    min_font_size=15
 ).generate(texto)
 
 plt.figure(figsize=(12, 5))
