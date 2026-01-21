@@ -240,7 +240,7 @@ stopwords = STOPWORDS.union({
     "eso", "su", "sus", "esa", "esas", "cual", "cuales", "tambien", "por", "sin", "se", "sobre",
     "ante", "rt", "o", "estar", "bien", "tener", "ser", "todo", "hacer", "cosa", "gracias", "otra", "otro", "otros", "otras",
     "este", "ha", "va", "algun", "algunas", "fue", "fueron", "claros", "desde", "cada", "esta", "estas", "toda", "porque", 
-    "mucho", "muchos", "todos", "todas", "hasta", "uno", "una"
+    "mucho", "muchos", "todos", "todas", "hasta", "uno", "una", "pero", "asi", "pude"
 })
 
 wordcloud = WordCloud(
