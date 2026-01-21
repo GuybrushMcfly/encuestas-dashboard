@@ -245,12 +245,12 @@ stopwords = STOPWORDS.union({
 
 wordcloud = WordCloud(
     width=1000,
-    height=400,
+    height=500,
     background_color="white",
     max_words=60,
     stopwords=stopwords,
     colormap="viridis",
-    min_font_size=20
+    min_font_size=30
 ).generate(texto)
 
 plt.figure(figsize=(12, 5))
